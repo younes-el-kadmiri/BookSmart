@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Livre - Bib Readers{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1 id="title">Détails du livre</h1>
+  <p class="muted" id="subtitle"></p>
+</section>
+
+<div class="card">
+  <div id="meta"></div>
+  <div class="row" style="margin-top:.8rem">
+    <button class="btn primary" id="btnReserve" style="display:none">Réserver</button>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+(async function(){
+  const id = new URLSearchParams(location.search).get('id');
+  if(!id){ document.getElementById('meta').innerHTML = '<p class="muted">ID manquant.</p>'; return; }
+  const r = await fetch(`/livres/${id}`);
+  if(!r.ok){ document.getElementById('meta').innerHTML = '<p class="muted">Livre introuvable.</p>'; return; }
+  const b = await r.json();
+  document.getElementById('title').textContent = b.titre;
+  document.getElementById('subtitle').textContent = (b.auteur || 'Auteur inconnu');
+  document.getElementById('meta').innerHTML = `
+    <div>Catégorie: ${b.categorie || '-'}</div>
+    <div>Genre: ${b.genre || '-'}</div>
+    <div>Disponibilité: ${b.disponible ? '✅' : '❌'}</div>
+    <div>Prix: € ${b.prix ? Number(b.prix).toFixed(2) : '-'}</div>`;
+  if(b.disponible){
+    const btn = document.getElementById('btnReserve');
+    btn.style.display = 'inline-block';
+    btn.onclick = () => reserve(b.id_livre);
+  }
+})();
+</script>
+{% endblock %}

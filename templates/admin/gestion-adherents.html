@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Admin - Adhérents{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Gestion des adhérents</h1>
+</section>
+
+<div class="card">
+  <table class="table" id="tbl">
+    <thead><tr><th>ID</th><th>Nom</th><th>Email</th><th>Statut</th><th>Actions</th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+async function loadAdherents(){
+  const r = await fetch('/adherents/');
+  const data = await r.json();
+  const tb = document.getElementById('tbody');
+  tb.innerHTML = data.map(a => `
+    <tr>
+      <td>${a.id_adherent || a.id || '-'}</td>
+      <td>${a.nom || a.utilisateur?.nom || '-'}</td>
+      <td>${a.email || a.utilisateur?.email || '-'}</td>
+      <td><span class="badge">actif</span></td>
+      <td><button class="btn warn">Suspendre</button></td>
+    </tr>`).join('');
+}
+loadAdherents();
+</script>
+{% endblock %}

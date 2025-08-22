@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Connexion - Bib Readers{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Connexion</h1>
+  <p class="muted">Accède à tes services personnels.</p>
+</section>
+
+<div class="card" style="max-width:480px">
+  <div class="row">
+    <input id="email" class="input" placeholder="Email">
+    <input id="password" type="password" class="input" placeholder="Mot de passe">
+  </div>
+  <div class="row" style="margin-top:.6rem">
+    <button class="btn primary" onclick="login()">Se connecter</button>
+    <a class="btn ghost" href="/inscription.html">Créer un compte</a>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+async function login(){
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  if(!email || !password){ alert("Email et mot de passe requis"); return; }
+  // À brancher avec /api/login si dispo
+  alert("Démo: connexion simulée ✅");
+  location.href = "/home.html";
+}
+</script>
+{% endblock %}

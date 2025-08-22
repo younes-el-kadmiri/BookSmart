@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Admin - Statistiques{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Statistiques</h1>
+</section>
+
+<div class="card">
+  <canvas id="chart" width="400" height="200"></canvas>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+(async function(){
+  // Exemple: appeler /statistiques/
+  try{
+    const r = await fetch('/statistiques/');
+    const stats = await r.json();
+    // fake fallback
+    const labels = (stats.labels || ["Populaires","Dispo","Retards"]);
+    const data = (stats.values || [5, 70, 3]);
+
+    new Chart(document.getElementById('chart'), {
+      type: 'bar',
+      data: { labels, datasets: [{ label:'Statistiques', data }] },
+      options: { responsive:true, scales:{ y:{ beginAtZero:true } } }
+    });
+  }catch(e){ console.log(e); }
+})();
+</script>
+{% endblock %}

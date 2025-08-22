@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Mon profil - Bib Readers{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Mon profil</h1>
+  <p class="muted">Mes informations et mes emprunts</p>
+</section>
+
+<div class="card">
+  <h3>Mes emprunts</h3>
+  <table class="table" id="tbl">
+    <thead><tr><th>Livre</th><th>Emprunt</th><th>Retour prévu</th><th>Statut</th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+// Démo simple (à remplacer par /api/mes-emprunts quand dispo)
+document.getElementById('tbody').innerHTML = `
+  <tr><td>Exemple Book</td><td>2025-08-10</td><td>2025-08-20</td><td><span class="badge">À temps</span></td></tr>
+`;
+</script>
+{% endblock %}

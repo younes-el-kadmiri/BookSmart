@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Recommandations - Bib Readers{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Recommandations par description</h1>
+  <p class="muted">Décris ce que tu cherches (ex: "roman d’aventure en Afrique").</p>
+  <div class="row">
+    <textarea id="desc" class="input" style="width:100%; min-height:100px" placeholder="Tape ta description ici..."></textarea>
+  </div>
+  <div class="row" style="margin-top:.6rem">
+    <button class="btn primary" onclick="recoByDesc('desc','reco-grid')">Obtenir des suggestions</button>
+    <button class="btn ok" onclick="buildReco()">Construire/Mettre à jour le modèle</button>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Suggestions</h2>
+  <div id="reco-grid" class="grid"></div>
+</section>
+
+<section class="section">
+  <h2>Recommandations par titre exact</h2>
+  <div class="row">
+    <input id="titre" class="input" placeholder="Saisis un titre exact présent en base">
+    <button class="btn ghost" onclick="recoByTitle('titre','reco-grid')">Recommander depuis ce titre</button>
+  </div>
+</section>
+{% endblock %}

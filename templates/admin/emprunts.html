@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Admin - Emprunts{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Gestion des emprunts</h1>
+</section>
+
+<div class="row">
+  <div class="card" style="flex:1">
+    <h3>Nouvel emprunt</h3>
+    <div class="row">
+      <input id="eid" class="input" placeholder="ID Adhérent">
+      <input id="lid" class="input" placeholder="ID Livre">
+      <button class="btn ok" onclick="createEmprunt()">Enregistrer</button>
+    </div>
+  </div>
+  <div class="card" style="flex:1">
+    <h3>Retour</h3>
+    <div class="row">
+      <input id="rid" class="input" placeholder="ID Emprunt">
+      <button class="btn warn" onclick="retour()">Enregistrer le retour</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+async function createEmprunt(){
+  alert("Brancher sur /api/emprunts (service EmpruntService) selon ton implémentation.");
+}
+async function retour(){
+  alert("Brancher sur /api/retours selon ton implémentation.");
+}
+</script>
+{% endblock %}
